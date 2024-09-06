@@ -1,17 +1,27 @@
 import { Row, Col } from "react-bootstrap";
-import { useSelector } from 'react-redux';
-import { useDispatch } from "react-redux";
-import { selectedTrack } from "../redux/actions";
+import { useSelector, useDispatch } from 'react-redux';
+import { selectedTrack, addToFavAction, removeFromFavAction } from "../redux/actions";
 
 const SearchResults = () => {
-    const searchResults = useSelector((store) => store.searched.result.data) || []; 
+    const searchResults = useSelector((store) => store.searched.result.data) || [];
+    const favoriteTracks = useSelector((store) => store.liked.fav) || [];
     const dispatch = useDispatch();
+
+    const isFavorite = (trackId) => {
+        return favoriteTracks.some(track => track.id === trackId);
+    };
 
     const handleClick = (track) => {
         dispatch(selectedTrack(track));
     };
 
-  
+    const handleFavoriteToggle = (track) => {
+        if (isFavorite(track.id)) {
+            dispatch(removeFromFavAction(track));
+        } else {
+            dispatch(addToFavAction(track));
+        }
+    };
 
     return (
         <>
@@ -32,12 +42,12 @@ const SearchResults = () => {
                             <h2>Search Results</h2>
                             <div className="py-3">
                                 <div className="boxLiked p-4">
-                                    {Array.isArray(searchResults) && searchResults.length === 0 ? (
+                                    {searchResults.length === 0 ? (
                                         <p>No results found.</p>
                                     ) : (
-                                        Array.isArray(searchResults) && searchResults.map((track, index) => (
+                                        searchResults.map((track, index) => (
                                             <Row
-                                                key={track.id} 
+                                                key={track.id}
                                                 className="py-2 text-light library-row"
                                                 onClick={() => handleClick(track)}
                                             >
@@ -58,7 +68,18 @@ const SearchResults = () => {
                                                 </Col>
                                                 <Col lg={2} className="d-flex align-items-center justify-content-center">
                                                     <p>{Math.floor(track.duration / 60)}:{(track.duration % 60).toString().padStart(2, '0')}</p>
+                                                    <div className="addIcon d-flex align-items-center ps-3 pt-1">
+                                                        <i
+                                                            className={`${isFavorite(track.id) ? 'bi bi-check-circle' : 'bi bi-plus-circle'}`}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleFavoriteToggle(track);
+                                                            }}
+
+                                                        ></i>
+                                                    </div>
                                                 </Col>
+
                                             </Row>
                                         ))
                                     )}

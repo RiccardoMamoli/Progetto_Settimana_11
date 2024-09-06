@@ -3,6 +3,23 @@ export const DO_FETCH_ROCK = 'DO_FETCH_ROCK'
 export const DO_FETCH_POP = 'DO_FETCH_POP'
 export const DO_FETCH_RAP = 'DO_FETCH_RAP'
 export const SELECT_TRACK = 'SELECT_TRACK'
+export const ADD_TO_FAV = 'ADD_TO_FAV'
+export const REMOVE_FROM_FAV = 'REMOVE_FROM_FAV'
+
+
+export const addToFavAction = (data) => {
+    return {
+        type: ADD_TO_FAV,
+        payload: data
+    }
+}
+
+export const removeFromFavAction = (data) => {
+    return {
+        type: REMOVE_FROM_FAV,
+        payload: data
+    }
+}
 
 export const selectedTrack = (track) => ({
     type: SELECT_TRACK,

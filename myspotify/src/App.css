@@ -8,6 +8,10 @@ body {
   );
 }
 
+p {
+  margin: 0 !important;
+}
+
 /*SIDEBAR SECTION*/
 .navbar.fixed-left {
   position: fixed;
@@ -187,8 +191,8 @@ ul {
 }
 
 .imagePlayer {
- width: 80px !important;
- height: 80px !important;
+ width: 75px !important;
+ height: 75px !important;
 }
 
 .imagePlayer img {
@@ -197,3 +201,7 @@ ul {
   object-fit: fill;
 }
 
+.addIcon {
+  cursor: pointer;
+  font-size: 18px;
+}

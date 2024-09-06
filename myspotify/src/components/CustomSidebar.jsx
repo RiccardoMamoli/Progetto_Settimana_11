@@ -1,19 +1,33 @@
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { SEARCH, fillMusicSection } from "../redux/actions";
+import { useState } from "react";
+import { HIDE_SEARCH_RESULTS } from "../redux/actions"; // Importa l'azione per nascondere i risultati
+
 const CustomSidebar = () => {
+    const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            dispatch(fillMusicSection(searchTerm, SEARCH));
+            setSearchTerm(''); // Svuota il campo di ricerca
+        }
+    };
+
     return (
         <aside className="col col-2">
-            <nav
-                className="navbar navbar-expand-md fixed-left justify-content-between"
-                id="sidebar"
-            >
+            <nav className="navbar navbar-expand-md fixed-left justify-content-between" id="sidebar">
                 <div className="container flex-column align-items-start">
-                    <a className="navbar-brand" href="index.html">
+                    <Link className="navbar-brand" to={'/'}>
                         <img
                             src="/assets/logo/logo.png"
                             alt="Spotify Logo"
                             width="131"
                             height="40"
                         />
-                    </a>
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -29,37 +43,40 @@ const CustomSidebar = () => {
                         <div className="navbar-nav">
                             <ul className="ps-0">
                                 <li>
-                                    <a
+                                    <Link
                                         className="nav-item nav-link d-flex align-items-center"
-                                        href="#void"
+                                        to={'/'}
                                     >
                                         <i className="bi bi-house-door-fill"></i>&nbsp; Home
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
+                                    <Link
                                         className="nav-item nav-link d-flex align-items-center"
-                                        href="#void"
+                                        to={'/library'}
                                     >
                                         <i className="bi bi-book-fill"></i>&nbsp; Your Library
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <div className="input-group mt-3">
+                                    <form className="input-group mt-3" onSubmit={handleSubmit}>
                                         <input
                                             type="text"
                                             className="form-control"
                                             placeholder="Search"
                                             aria-label="Search"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
                                         />
                                         <div className="input-group-append">
                                             <button
                                                 className="btn btn-outline-secondary btn-sm h-100"
+                                                type="submit"
                                             >
                                                 GO
                                             </button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </li>
                             </ul>
                         </div>

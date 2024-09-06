@@ -6,9 +6,13 @@ import { Container, Row } from 'react-bootstrap'
 import Home from './components/Home';
 import CustomPlayer from './components/CustomPlayer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import YourLibrary from './components/YourLibrary';
+import { useSelector } from 'react-redux';
+import SearchResult from './components/SearchResult';
 
 
 function App() {
+  const showSearchResults = useSelector((store) => store.searched.showResults)
   return (
     <>
       <BrowserRouter>
@@ -16,7 +20,8 @@ function App() {
           <Row>
             <CustomSidebar />
             <Routes>
-              <Route path='/' element={ <Home />} />
+            <Route path="/" element={showSearchResults ? <SearchResult /> : <Home />} />
+              <Route path='/library' element={ <YourLibrary />} />
             </Routes>
           </Row>
         </Container>

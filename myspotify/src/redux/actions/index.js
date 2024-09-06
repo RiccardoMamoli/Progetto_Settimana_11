@@ -5,7 +5,15 @@ export const DO_FETCH_RAP = 'DO_FETCH_RAP'
 export const SELECT_TRACK = 'SELECT_TRACK'
 export const ADD_TO_FAV = 'ADD_TO_FAV'
 export const REMOVE_FROM_FAV = 'REMOVE_FROM_FAV'
+export const SEARCH = 'SEARCH'
 
+
+export const searchAction = (artist) => {
+    return {
+        type: SEARCH,
+        payload: artist
+    }
+}
 
 export const addToFavAction = (data) => {
     return {

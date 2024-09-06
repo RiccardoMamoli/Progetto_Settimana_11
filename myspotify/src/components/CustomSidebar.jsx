@@ -1,20 +1,23 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { SEARCH, fillMusicSection } from "../redux/actions";
 import { useState } from "react";
-import { HIDE_SEARCH_RESULTS } from "../redux/actions"; // Importa l'azione per nascondere i risultati
+
 
 const CustomSidebar = () => {
     const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (searchTerm.trim()) {
             dispatch(fillMusicSection(searchTerm, SEARCH));
-            setSearchTerm(''); // Svuota il campo di ricerca
+            setSearchTerm('');
+            navigate('/search-results');
         }
     };
+
 
     return (
         <aside className="col col-2">

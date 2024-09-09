@@ -76,9 +76,11 @@ const CustomPlayer = () => {
                                     <img src="assets/playerbuttons/repeat.png" alt="repeat" />
                                 </a>
                             </div>
-                            <div className="progress mt-3">
-                                <div role="progressbar"></div>
-                            </div>
+
+                                <div className="progress mt-3">
+                                    <div role="progressbar"></div>
+                                </div>
+
                         </Col>
                     </Row>
                 </div>
